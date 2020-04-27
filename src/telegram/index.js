@@ -33,7 +33,7 @@ bot.on('message', (msg) => {
 
   let res = `[${date_str}] ${first_name} : ${text}`;
   debug(res);
-  axios.post('http://localhost:4000/discord', {
+  axios.post(`http://${process.env.HOST}:${process.env.PORT}/discord`, {
     content: res,
   })
     .then((response) => {

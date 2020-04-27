@@ -42,7 +42,7 @@ client.on('message', async message => {
 
   // send
   let res = `[${datetime}] ${username} : ${content}`;
-  axios.post('http://localhost:4000/telegram', {
+  axios.post(`http://${process.env.HOST}:${process.env.PORT}/telegram`, {
     content: res,
   })
     .then((response) => {
