@@ -1,5 +1,5 @@
 const dotenv = require('dotenv').config();
-process.env.DEBUG = 'app';  // for debug logging
+process.env.DEBUG = '*';  // for debug logging
 
 const Koa = require('koa');
 const Router = require('koa-router');
