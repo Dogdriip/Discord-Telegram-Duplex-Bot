@@ -9,11 +9,8 @@ const debug = require('debug')('app');
 const discord = require('./discord');
 const telegram = require('./telegram');
 
-
-
 const app = new Koa();
 const router = new Router();
-
 
 router.use('/discord', discord.routes());
 router.use('/telegram', telegram.routes());
@@ -26,5 +23,3 @@ app
 app.listen(process.env.PORT, () => {
   debug('OK　レディー・ゴー!　＞▽＜');
 });
-
-
