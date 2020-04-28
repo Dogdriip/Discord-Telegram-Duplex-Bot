@@ -1,5 +1,5 @@
 const debug = require('debug')('app:discord');
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 const axios = require('axios');
 
 /// SETUP
@@ -13,12 +13,12 @@ const router = new Router();
 
 /// BOT
 client.on('ready', () => {
-  debug('OK　レディー・ゴー!　＞▽＜');
+  debug('＞▽＜');
   client.user.setActivity('＞▽＜');
 
   // get designated channel
-  const channel = client.channels.cache.get(CHANNEL_ID);
-  channel.send('＞▽＜');
+  // const channel = client.channels.cache.get(CHANNEL_ID);
+  // channel.send('＞▽＜');
 });
 
 client.on('message', async message => {
@@ -64,6 +64,5 @@ router.post('/', (ctx, next) => {
   channel.send(body.content);
   ctx.body = 'success';
 });
-
 
 module.exports = router;

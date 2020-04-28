@@ -5,7 +5,7 @@ const axios = require('axios');
 /// SETUP
 const GROUP = process.env.TELEGRAM_BOT_GROUP_ID;
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-const bot = new TelegramBot(TOKEN, {polling: true});
+const bot = new TelegramBot(TOKEN, { polling: true });
 
 const Router = require('koa-router');
 const router = new Router();
@@ -55,15 +55,5 @@ router.post('/', (ctx, next) => {
   bot.sendMessage(GROUP, body.content);
   ctx.body = 'success';
 });
-
-
-
-
-
-
-
-
-
-
 
 module.exports = router;
