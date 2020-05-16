@@ -41,3 +41,10 @@ Duplex system for simple text message between Telegram and Discord
     ```
     $ npm run start:dev
     ``` 
+
+## TODO
+- [x] Write TODO
+- [ ] Fix timezone issue 
+- [ ] Support stickers
+- [ ] Support photos
+- [ ] More stable deployments
