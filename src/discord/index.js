@@ -1,6 +1,8 @@
 const debug = require('debug')('app:discord');
 const Discord = require('discord.js');
 const axios = require('axios');
+const moment = require('moment');
+const moment_timezone = require('moment-timezone');
 
 /// SETUP
 const TOKEN = process.env.DISCORD_BOT_TOKEN;
@@ -36,8 +38,10 @@ client.on('message', async message => {
 
   // configure res message
   const username = message.author.username;
-  const _date = message.createdAt;
-  const datetime = `${_date.getFullYear()}/${_date.getMonth()}/${_date.getDate()} ${_date.getHours()}:${_date.getMinutes()}:${_date.getSeconds()}`;
+  // const _date = moment(message.createdAt);
+  const _date = moment(message.createdTimestamp);
+  // const datetime = `${_date.getFullYear()}/${_date.getMonth()}/${_date.getDate()} ${_date.getHours()}:${_date.getMinutes()}:${_date.getSeconds()}`;
+  const datetime = _date.tz('Asia/Seoul').format('YYYY-MM-DD HH:mm:ss');
   const content = message.content;
 
   // send

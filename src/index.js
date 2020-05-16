@@ -7,6 +7,8 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
 const debug = require('debug')('app');
+const moment = require('moment');
+const moment_timezone = require('moment-timezone');
 
 const discord = require('./discord');
 const telegram = require('./telegram');
@@ -24,4 +26,5 @@ app
 
 app.listen(process.env.PORT, () => {
   debug('OK　レディー・ゴー!　＞▽＜');
+  debug(moment().tz('Asia/Seoul').format('YYYY-MM-DD HH:mm:ss'));
 });
