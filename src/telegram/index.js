@@ -32,10 +32,12 @@ bot.on('message', (msg) => {
   const first_name = _from.first_name;
   const _date = msg.date;
   // const date_str = new Date(_date * 1000).toLocaleTimeString("en-US");
-  const date_str = moment(_date * 1000).tz('Asia/Seoul').format('YYYY-MM-DD HH:mm:ss');
+  const date = _date * 1000;
+  const date_str = moment(date).tz('Asia/Seoul').format('YYYY-MM-DD HH:mm:ss');
   const text = msg.text;
 
   // construct res
+  /*
   let res;
   if (msg.reply_to_message) {  // check if it's reply
     const reply = msg.reply_to_message;
@@ -43,11 +45,39 @@ bot.on('message', (msg) => {
   } else {  //
     res = `[${date_str}] ${first_name} : ${text}`;
   }
+   */
 
-  debug(res);
-  axios.post(`http://${process.env.HOST}:${process.env.PORT}/discord`, {
-    content: res,
-  })
+  // debug(res);
+  // We'll no more send res
+  // Let's define new APIs
+
+  /**
+   * message_id: Int
+   * from: String  // first name only
+   * date: LinuxTimestamp
+   * text: String
+   * is_reply: Boolean
+   * reply_text: String
+   * reply_from: String  // first name only
+   */
+
+  // consruct data
+  let data = {
+    message_id: msg.message_id,
+    from: msg.from.first_name,
+    date: msg.date * 1000,
+    text: msg.text,
+  }
+  if (msg.reply_to_message) {
+    const reply = msg.reply_to_message;
+    data.is_reply = true;
+    data.reply_text = reply.text;
+    data.reply_from = reply.from.first_name;
+  } else {
+    data.is_reply = false;
+  }
+
+  axios.post(`http://${process.env.HOST}:${process.env.PORT}/discord`, data)
     .then((response) => {
       debug(response.statusText);
     })

@@ -64,6 +64,7 @@ client.on('message', async message => {
 router.post('/', (ctx, next) => {
   const body = ctx.request.body;
   debug(body);
+  // TODO: Check whether router gets body correctly, then work on message processing
   const channel = client.channels.cache.get(CHANNEL_ID);
   channel.send(body.content);
   ctx.body = 'success';
