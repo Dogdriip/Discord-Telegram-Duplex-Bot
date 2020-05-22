@@ -24,6 +24,7 @@ bot.onText(/\/test (.+)/, (msg, match) => {
 
 
 bot.on('message', (msg) => {
+  // TODO: check type on https://core.telegram.org/bots/api#chat
   if (msg.chat.id != GROUP) return;
 
   const message_id = msg.message_id;

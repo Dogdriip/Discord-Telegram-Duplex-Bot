@@ -46,7 +46,7 @@ Duplex system for simple text message between Telegram and Discord
 - [x] Write TODO
 - [x] Fix timezone issue 
 - [x] Handle reply in Telegram
+- [ ] Fix API structure
 - [ ] Support stickers
 - [ ] Support photos
-- [ ] Fix API structure
 - [ ] More stable deployments
