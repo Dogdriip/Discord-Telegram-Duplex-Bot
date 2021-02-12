@@ -1,0 +1,14 @@
+version: "3.0"
+
+services:
+  bot:
+    build: .
+    restart: always
+    environment:
+      DEBUG: app*
+      HOST: localhost
+      PORT: 4000
+      TELEGRAM_BOT_TOKEN: YOUR_TELEGRAM_BOT_TOKEN_HERE
+      TELEGRAM_BOT_GROUP_ID: YOUR_TELEGRAM_BOT_GROUP_ID_HERE
+      DISCORD_BOT_TOKEN: YOUR_DISCORD_BOT_TOKEN_HERE
+      DISCORD_BOT_CHANNEL_ID: YOUR_DISCORD_BOT_CHANNEL_ID_HERE
