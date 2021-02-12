@@ -1,15 +1,15 @@
-const debug = require('debug')('app:telegram');
-const TelegramBot = require('node-telegram-bot-api');
-const axios = require('axios');
-const moment = require('moment');
-const moment_timezone = require('moment-timezone');
+const debug = require("debug")("app:telegram");
+const TelegramBot = require("node-telegram-bot-api");
+const axios = require("axios");
+const moment = require("moment");
+const moment_timezone = require("moment-timezone");
 
 /// SETUP
 const GROUP = process.env.TELEGRAM_BOT_GROUP_ID;
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const bot = new TelegramBot(TOKEN, { polling: true });
 
-const Router = require('koa-router');
+const Router = require("koa-router");
 const router = new Router();
 
 /// BOT
@@ -22,62 +22,35 @@ bot.onText(/\/test (.+)/, (msg, match) => {
   bot.sendMessage(chatId, resp);
 });
 
-
-bot.on('message', (msg) => {
+bot.on("message", (msg) => {
   // TODO: check type on https://core.telegram.org/bots/api#chat
   if (msg.chat.id != GROUP) return;
 
   const message_id = msg.message_id;
-  const _from = msg.from;  // Class User
+  const _from = msg.from; // Class User
   const first_name = _from.first_name;
   const _date = msg.date;
   // const date_str = new Date(_date * 1000).toLocaleTimeString("en-US");
   const date = _date * 1000;
-  const date_str = moment(date).tz('Asia/Seoul').format('YYYY-MM-DD HH:mm:ss');
+  const date_str = moment(date).tz("Asia/Seoul").format("YYYY-MM-DD HH:mm:ss");
   const text = msg.text;
 
   // construct res
-  /*
+
   let res;
-  if (msg.reply_to_message) {  // check if it's reply
+  if (msg.reply_to_message) {
+    // check if it's reply
     const reply = msg.reply_to_message;
     res = `[${date_str}] Replying to →→→ (${reply.from.first_name} : ${reply.text}) →→→ \n ${first_name} : ${text}`;
-  } else {  //
+  } else {
+    //
     res = `[${date_str}] ${first_name} : ${text}`;
   }
-   */
 
-  // debug(res);
-  // We'll no more send res
-  // Let's define new APIs
-
-  /**
-   * message_id: Int
-   * from: String  // first name only
-   * date: LinuxTimestamp
-   * text: String
-   * is_reply: Boolean
-   * reply_text: String
-   * reply_from: String  // first name only
-   */
-
-  // consruct data
-  let data = {
-    message_id: msg.message_id,
-    from: msg.from.first_name,
-    date: msg.date * 1000,
-    text: msg.text,
-  }
-  if (msg.reply_to_message) {
-    const reply = msg.reply_to_message;
-    data.is_reply = true;
-    data.reply_text = reply.text;
-    data.reply_from = reply.from.first_name;
-  } else {
-    data.is_reply = false;
-  }
-
-  axios.post(`http://${process.env.HOST}:${process.env.PORT}/discord`, data)
+  axios
+    .post(`http://${process.env.HOST}:${process.env.PORT}/discord`, {
+      content: res,
+    })
     .then((response) => {
       debug(response.statusText);
     })
@@ -89,13 +62,12 @@ bot.on('message', (msg) => {
   // bot.sendMessage(chatId, `${first_name} [${date_str}] : ${text}`);
 });
 
-
 /// ROUTER
-router.post('/', (ctx, next) => {
+router.post("/", (ctx, next) => {
   const body = ctx.request.body;
   debug(body);
   bot.sendMessage(GROUP, body.content);
-  ctx.body = 'success';
+  ctx.body = "success";
 });
 
 module.exports = router;
