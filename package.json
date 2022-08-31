@@ -20,7 +20,7 @@
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^8.0.8",
     "moment": "^2.25.3",
-    "moment-timezone": "^0.5.28",
+    "moment-timezone": "^0.5.35",
     "node-telegram-bot-api": "^0.40.0",
     "nodemon": "^2.0.3"
   }
